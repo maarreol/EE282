@@ -38,3 +38,5 @@ _**Print a summary report with the following information:**_
 grep -v "^#" dmel-all-r6.24.gtf | cut -f3 | sort | uniq -c | sort -rn  
 
 **Total number of genes per chromosome arm (X, Y, 2L, 2R, 3L, 3R, 4)**  
+grep -v "^[#]" dmel-all-r6.24.gtf | cut -f1 | sort | uniq -c | sort -rn | head -7
+
