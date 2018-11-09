@@ -15,6 +15,9 @@
 >rm okay - to remove file titled "okay" from this directory  
 >ls - to list files and directories in current working directory  
 
+### Question 1 Comments:
+Very well done! Great job.
+
 2. Create a matrix and dataframe with numeric indices and compare the differences 
 
 >mymatrix <- matrix (1:9, ncol=3, nrow=3)  
