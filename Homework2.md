@@ -31,6 +31,10 @@ Very well done! Great job.
 >In this case all of the data are numeric indices. This is not true for dataframes where every column can be of a different data type (however for the purposes of this example they happen to all be numeric indices).
 >mymatrix[,1] and mydf[,1] and mydf[[1]] all give pretty similar results by showing us the information in the first column of our matrix or dataframe as column vectors. When subsetting as mydf[1] however returns the columns as they would be in a dataframe (not vectors). 
 
+### Question 2 Comments:
+
+Good job.
+
 3. Create a file in a directory that can only be read by a colleague in your home directory. 
 
 >cd ~ - to move to home directory  
