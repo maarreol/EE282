@@ -44,3 +44,18 @@ Good job.
 >chmod go+r hi - to give permission to read the file hi  
 >chmod go-wx hi - to remove permissions to write and execute file hi  
 >ls -l - to see permissions currently being granted to files
+
+### Question 3 Comments:
+
+Good job. Your code doesn't quite work out because you didn't actually create the file in the ```Duh``` directory. I also added a ```mkdir -p``` command that will create ```Duh``` only if it needs creating. Finally, it's worth noting that this works only if your home directory permits execute for group and other.
+
+```
+cd ~
+mkdir -p Duh
+chmod go+x Duh
+cd Duh
+touch hi
+chmod go+r hi
+chmod go-wx hi
+ls -l
+```
