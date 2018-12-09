@@ -92,5 +92,23 @@ bioawk -c fastx ' { print length($seq) } ' unitigs.fa   | sort -rn   | awk ' BEG
 
 bioawk -c fastx ' { print length($seq) } ' dmel-all-chromosome-r6.24.fasta   | sort -rn   | awk ' BEGIN { print "Assembly\tLength\nFB_Scaff\t0" } { print "FB_Scaff\t" $1 } ' > r6scaff_fifo  
 
-faSplitByN dmel-all-chromosome-r6-24.fasta dmelcont.fasta 10 | bioawk -c fastx ' { print length($seq) } ' dmel-all-chromosome-r6.24.fasta | sort -rn | awk ' BEGIN { print "Assembly\tLength\nFB_Scaff\t0" } { print "FB_Scaff\t" $1 } ' \> r6cont_fifo 
+faSplitByN dmel-all-chromosome-r6-24.fasta dmelcont.fa 10 | bioawk -c fastx ' { print length($seq) } ' dmel-all-chromosome-r6.24.fasta | sort -rn | awk ' BEGIN { print "Assembly\tLength\nFB_Scaff\t0" } { print "FB_Scaff\t" $1 } ' \> r6cont_fifo 
+
+module unload perl  
+source /pub/jje/ee282/bin/.qmbashrc  
+module load gnuplot  
+
+REF="dmelcont.fa"  
+PREFIX="flybase"  
+SGE_TASK_ID=1  
+QRY=$(ls u*.fa | head -n $SGE_TASK_ID | tail -n 1)  
+PREFIX=${PREFIX}_$(basename ${QRY} .fa)  
+
+nucmer -l 100 -c 150 -d 10 -banded -D 5 -prefix ${PREFIX} ${REF} ${QRY}
+mummerplot --fat --layout --filter -p ${PREFIX} ${PREFIX}.delta \
+  -R ${REF} -Q ${QRY} --postscript  
+
+open postscript file with gv flybasecont_unitigs.ps  
+
+
 
