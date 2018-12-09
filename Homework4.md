@@ -9,16 +9,16 @@ faSize 99kb.fasta
 faSize 100kb.fasta  
 
 1. Total Number of Nucleotides:  
-Less than 100 kb:  
-Greater than 100 kb:  
+Less than or equal to 100 kb: 6178042  
+Greater than 100 kb: 137547960  
 
 2. Total Number of Ns:  
-Less than 100 kb:  
-Greater than 100 kb:  
+Less than 100 kb: 662593  
+Greater than 100 kb: 490385  
 
 3. Total Number of Sequences:  
-Less than 100 kb:  
-Greater than 100 kb:
+Less than 100 kb: 1863  
+Greater than 100 kb: 7
 
 #### Plots of the following for the whole genome, for all sequences ≤ 100kb, and all sequences > 100kb:*  
 
