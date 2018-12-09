@@ -8,35 +8,35 @@ faSize 99kb.fasta
 
 faSize 100kb.fasta  
 
-1. Total Number of Nucleotides:  
+#### 1. Total Number of Nucleotides:  
 Less than or equal to 100 kb: 6178042  
 Greater than 100 kb: 137547960  
 
-2. Total Number of Ns:  
+#### 2. Total Number of Ns:  
 Less than 100 kb: 662593  
 Greater than 100 kb: 490385  
 
-3. Total Number of Sequences:  
+#### 3. Total Number of Sequences:  
 Less than 100 kb: 1863  
 Greater than 100 kb: 7
 
 #### Plots of the following for the whole genome, for all sequences ≤ 100kb, and all sequences > 100kb:*  
 
-1. Sequence Length Distribution  
+#### 1. Sequence Length Distribution  
 
 samtools faidx 100kb.fasta
 cut -f2 100kb.fasta.fai | Rscript -e 'data <- as.numeric (readLines ("stdin")); summary(data); hist(data)'  
   
 _gives you plot as Rplots.pdf so change name before reusing command for other plots; use same command with 99kb.fasta and whole genome files_ 
 
-2. Sequence GC% Distribution:  
+#### 2. Sequence GC% Distribution:  
 
 bioawk -c fastx '{ print ">"$name; print gc($seq) }' 100kb.fasta > 100kbGC \  
 cut -f2 100kbGC | Rscript -e 'data <- as.numeric (readLines ("stdin")); summary(data); hist(data)  
 
 _gives you plot as Rplots.pdf so change name before reusing command for other plots; use same command with 99kb.fasta and whole genome files_  
 
-3. Cumulative genome size sorted from largest to smallest sequences  
+#### 3. Cumulative genome size sorted from largest to smallest sequences  
 
 mkfifo 100kb_fifo
 
@@ -51,10 +51,10 @@ _repeat steps for other two graphs replacing necessary names and files_
 
 #### Assemble a genome from MinION reads  
 
-1. Download reads  
+#### 1. Download reads  
 wget https://hpc.oit.uci.edu/~solarese/ee282/iso1_onp_a2_1kb.fastq.gz  
 
-2. Use minimap to overlap reads, use miniasm to construct an assembly and calculate N50 of assembly:  
+#### 2. Use minimap to overlap reads, use miniasm to construct an assembly and calculate N50 of assembly:  
 
 \#!/bin/bash  
 \#$ -N homework4  
@@ -82,7 +82,7 @@ $minimap -t 32 -Sw5 -L100 -m0 $raw/reads.fq{,} | gzip -1 > $processed/onp.paf.gz
 $miniasm -f $raw/reads.fq $processed/onp.paf.gz > $processed/reads.gfa  
 awk ' $0 ~/^S/ { print ">" $2" \n" $3 } ' $processed/reads.gfa | tee >(n50 /dev/stdin > $reports/n50.txt) | fold -w 60 > $processed/unitigs.fa  
 
-2. Compare your assembly to the contig assembly (not the scaffold assembly!) from Drosophila melanogaster on FlyBase using a dotplot constructed with MUMmer (Hint: use faSplitByN as demonstrated in class)  
+#### 2. Compare your assembly to the contig assembly (not the scaffold assembly!) from Drosophila melanogaster on FlyBase using a dotplot constructed with MUMmer (Hint: use faSplitByN as demonstrated in class)  
 
 module load perl  
 module load jje/jjeutils  
@@ -110,7 +110,7 @@ mummerplot --fat --layout --filter -p ${PREFIX} ${PREFIX}.delta \
 
 open postscript file with gv flybasecont_unitigs.ps  
 
-3. Compare your assembly to both the contig assembly and the scaffold assembly from the Drosophila melanogaster on FlyBase using a contiguity plot (Hint: use plotCDF2 as demonstrated in class and see this example):  
+#### 3. Compare your assembly to both the contig assembly and the scaffold assembly from the Drosophila melanogaster on FlyBase using a contiguity plot (Hint: use plotCDF2 as demonstrated in class and see this example):  
 
 
 
