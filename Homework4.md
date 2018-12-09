@@ -82,4 +82,15 @@ $minimap -t 32 -Sw5 -L100 -m0 $raw/reads.fq{,} | gzip -1 > $processed/onp.paf.gz
 $miniasm -f $raw/reads.fq $processed/onp.paf.gz > $processed/reads.gfa  
 awk ' $0 ~/^S/ { print ">" $2" \n" $3 } ' $processed/reads.gfa | tee >(n50 /dev/stdin > $reports/n50.txt) | fold -w 60 > $processed/unitigs.fa  
 
+2. Compare your assembly to the contig assembly (not the scaffold assembly!) from Drosophila melanogaster on FlyBase using a dotplot constructed with MUMmer (Hint: use faSplitByN as demonstrated in class)  
+
+module load perl  
+module load jje/jjeutils  
+module load rstudio  
+
+bioawk -c fastx ' { print length($seq) } ' unitigs.fa   | sort -rn   | awk ' BEGIN { print "Assembly\tLength\nONT_Contig\t0" } { print "ONT_Contig\t" $1 } '   > ONT_Contig_fifo
+
+bioawk -c fastx ' { print length($seq) } ' dmel-all-chromosome-r6.24.fasta   | sort -rn   | awk ' BEGIN { print "Assembly\tLength\nFB_Scaff\t0" } { print "FB_Scaff\t" $1 } ' > r6scaff_fifo  
+
+faSplitByN dmel-all-chromosome-r6-24.fasta dmelcont.fasta 10 | bioawk -c fastx ' { print length($seq) } ' dmel-all-chromosome-r6.24.fasta | sort -rn | awk ' BEGIN { print "Assembly\tLength\nFB_Scaff\t0" } { print "FB_Scaff\t" $1 } ' \> r6cont_fifo 
 
