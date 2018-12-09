@@ -112,6 +112,54 @@ open postscript file with gv flybasecont_unitigs.ps
 
 #### 3. Compare your assembly to both the contig assembly and the scaffold assembly from the Drosophila melanogaster on FlyBase using a contiguity plot (Hint: use plotCDF2 as demonstrated in class and see this example):  
 
+_Use fifo filesprepared in previous step_ 
 
+plotCDF2 {ONT_Contig,r6cont,r6scaff}_fifo comparison.png  
+display comparison.png
+
+#### 4. Calculate BUSCO scores of both assemblies and compare them
+
+Full Assembly:  
+C:98.6%[S:98.1%,D:0.5%],F:0.8%,M:0.6%,n:2799
+
+        2761    Complete BUSCOs (C)
+        2747    Complete and single-copy BUSCOs (S)
+        14	Complete and duplicated BUSCOs (D)
+        21	Fragmented BUSCOs (F)
+        17	Missing BUSCOs (M)
+        2799    Total BUSCO groups searched
+
+My Assembly:  
+C:0.5%[S:0.5%,D:0.0%],F:1.1%,M:98.4%,n:2799
+
+        13	Complete BUSCOs (C)
+        13	Complete and single-copy BUSCOs (S)
+        0	Complete and duplicated BUSCOs (D)
+        32	Fragmented BUSCOs (F)
+        2754    Missing BUSCOs (M)
+        2799    Total BUSCO groups searched
+
+Running BUSCO Script:  
+\#!/bin/bash  
+\#  
+\#$ -N BuscoUnitigs  
+\#$ -q free128,abio128,bio,abio  
+\#$ -pe openmp 32  
+\#$ -R Y  
+module load augustus/3.2.1  
+module load blast/2.2.31 hmmer/3.1b2 boost/1.54.0  
+source /pub/jje/ee282/bin/.buscorc  
+
+INPUTTYPE="geno"  
+MYLIBDIR="/pub/jje/ee282/bin/busco/lineages/"  
+MYLIB="diptera_odb9"  
+OPTIONS="-l ${MYLIBDIR}${MYLIB}"  
+##OPTIONS="${OPTIONS} -sp 4577"  
+QRY="unitigs.fa"  
+MYEXT=".fa"  
+
+BUSCO.py -c ${NSLOTS} -i ${QRY} -m ${INPUTTYPE} -o $(basename ${QRY} ${MYEXT})_$_${MYLIB}${SPTAG} ${OPTIONS}  
+
+_Replace QRY and MYEXT with necessary information to run for full assembly_
 
 
