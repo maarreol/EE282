@@ -38,6 +38,17 @@ _gives you plot as Rplots.pdf so change name before reusing command for other pl
 
 3. Cumulative genome size sorted from largest to smallest sequences  
 
+mkfifo 100kb_fifo
+
+bioawk -c fastx 'length($seq) > 100000 { print length($seq) }' *fasta \
+| sort -rn | awk ' BEGIN { print "Assembly\tLength\nSeqLength>100kb\t0" } { print "SeqLength>100kb\t" $1 } ' \
+\> 100kb_fifo & 
+
+plotCDF2 100kb_fifo 100kb.png  
+display 100kb.png
+
+_repeat steps for other two graphs replacing necessary names and files_
+
 #### Assemble a genome from MinION reads  
 
 1. Download reads  
