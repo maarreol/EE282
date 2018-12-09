@@ -110,5 +110,8 @@ mummerplot --fat --layout --filter -p ${PREFIX} ${PREFIX}.delta \
 
 open postscript file with gv flybasecont_unitigs.ps  
 
+3. Compare your assembly to both the contig assembly and the scaffold assembly from the Drosophila melanogaster on FlyBase using a contiguity plot (Hint: use plotCDF2 as demonstrated in class and see this example):  
+
+
 
 
