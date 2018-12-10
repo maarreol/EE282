@@ -65,7 +65,7 @@ bioawk -c fastx 'length($seq) > 100000 { print length($seq) }' *fasta \
 plotCDF2 100kb_fifo 100kb.png  
 display 100kb.png
 
-_repeat steps for other two graphs replahttps://github.com/maarreol/EE282/blob/master/99kb.PNG)cing necessary names and files_  
+_repeat steps for other two graphs replacing necessary names and files_  
 
 Below 100kb:  
 ![99kb](https://github.com/maarreol/EE282/blob/master/99kb.PNG)  
