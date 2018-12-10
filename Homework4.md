@@ -29,6 +29,8 @@ cut -f2 100kb.fasta.fai | Rscript -e 'data <- as.numeric (readLines ("stdin")); 
   
 _gives you plot as Rplots.pdf so change name before reusing command for other plots; use same command with 99kb.fasta and whole genome files_ 
 
+![whole](https://github.com/maarreol/EE282/blob/master/wholeseqlength.PNG)
+
 #### 2. Sequence GC% Distribution:  
 
 bioawk -c fastx '{ print ">"$name; print gc($seq) }' 100kb.fasta > 100kbGC \  
