@@ -27,8 +27,15 @@ Greater than 100 kb: 7
 samtools faidx 100kb.fasta
 cut -f2 100kb.fasta.fai | Rscript -e 'data <- as.numeric (readLines ("stdin")); summary(data); hist(data)'  
   
-_gives you plot as Rplots.pdf so change name before reusing command for other plots; use same command with 99kb.fasta and whole genome files_ 
+_gives you plot as Rplots.pdf so change name before reusing command for other plots; use same command with 99kb.fasta and whole genome files_  
 
+Below 100kb:  
+![below](https://github.com/maarreol/EE282/blob/master/99seqlength.png)  
+
+Over 100kb:  
+![over](https://github.com/maarreol/EE282/blob/master/100seqlength.png)  
+
+Whole Genome:  
 ![whole](https://github.com/maarreol/EE282/blob/master/wholeseqlength.PNG)
 
 #### 2. Sequence GC% Distribution:  
@@ -37,6 +44,15 @@ bioawk -c fastx '{ print ">"$name; print gc($seq) }' 100kb.fasta > 100kbGC \
 cut -f2 100kbGC | Rscript -e 'data <- as.numeric (readLines ("stdin")); summary(data); hist(data)  
 
 _gives you plot as Rplots.pdf so change name before reusing command for other plots; use same command with 99kb.fasta and whole genome files_  
+
+Below 100kb:  
+![below](https://github.com/maarreol/EE282/blob/master/99GC.png)  
+
+Over 100kb:  
+![over](https://github.com/maarreol/EE282/blob/master/100GC.png)  
+
+Whole Genome:  
+![whole](https://github.com/maarreol/EE282/blob/master/wholeGC.png)  
 
 #### 3. Cumulative genome size sorted from largest to smallest sequences  
 
@@ -112,12 +128,16 @@ mummerplot --fat --layout --filter -p ${PREFIX} ${PREFIX}.delta \
 
 open postscript file with gv flybasecont_unitigs.ps  
 
+![flybasecont](https://github.com/maarreol/EE282/blob/master/flybasecont_unitigs.png)  
+
 #### 3. Compare your assembly to both the contig assembly and the scaffold assembly from the Drosophila melanogaster on FlyBase using a contiguity plot (Hint: use plotCDF2 as demonstrated in class and see this example):  
 
 _Use fifo filesprepared in previous step_ 
 
 plotCDF2 {ONT_Contig,r6cont,r6scaff}_fifo comparison.png  
-display comparison.png
+display comparison.png  
+
+![comparison](https://github.com/maarreol/EE282/blob/master/r6.png)
 
 #### 4. Calculate BUSCO scores of both assemblies and compare them
 
