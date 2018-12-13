@@ -58,5 +58,26 @@ wget ftp://ftp.ensembl.org/pub/release-94/gtf/mus_musculus/Mus_musculus.GRCm38.9
 
 module load subread/1.5.0-p3
 
-featureCounts -p -t exon -g gene_id -a Mus_musculus.GRCm38.94.gtf -o counts.txt /bio/maarreol/A1Aligned.out.bam  /bio/maarreol/A2Aligned.out.bam /bio/maarreol/A3Aligned.out.bam /bio/maarreol/A4Aligned.out.bam /bio/maarreol/A5Aligned.out.bam  /bio/maarreol/A6Aligned.out.bam /bio/maarreol/B1Aligned.out.bam /bio/maarreol/B2Aligned.out.bam /bio/maarreol/B3Aligned.out.bam /bio/maarreol/B4Aligned.out.bam /bio/maarreol/B5Aligned.out.bam /bio/maarreol/B6Aligned.out.bam /bio/maarreol/C1Aligned.out.bam /bio/maarreol/C2Aligned.out.bam /bio/maarreol/C3Aligned.out.bam /bio/maarreol/C4Aligned.out.bam /bio/maarreol/C5Aligned.out.bam /bio/maarreol/C6Aligned.out.bam /bio/maarreol/D1Aligned.out.bam /bio/maarreol/D2Aligned.out.bam /bio/maarreol/D3Aligned.out.bam /bio/maarreol/D4Aligned.out.bam /bio/maarreol/D5Aligned.out.bam /bio/maarreol/D6Aligned.out.bam
+featureCounts -p -t exon -g gene_id -a Mus_musculus.GRCm38.94.gtf -o counts.txt /bio/maarreol/A1Aligned.out.bam  /bio/maarreol/A2Aligned.out.bam /bio/maarreol/A3Aligned.out.bam /bio/maarreol/A4Aligned.out.bam /bio/maarreol/A5Aligned.out.bam  /bio/maarreol/A6Aligned.out.bam /bio/maarreol/B1Aligned.out.bam /bio/maarreol/B2Aligned.out.bam /bio/maarreol/B3Aligned.out.bam /bio/maarreol/B4Aligned.out.bam /bio/maarreol/B5Aligned.out.bam /bio/maarreol/B6Aligned.out.bam /bio/maarreol/C1Aligned.out.bam /bio/maarreol/C2Aligned.out.bam /bio/maarreol/C3Aligned.out.bam /bio/maarreol/C4Aligned.out.bam /bio/maarreol/C5Aligned.out.bam /bio/maarreol/C6Aligned.out.bam /bio/maarreol/D1Aligned.out.bam /bio/maarreol/D2Aligned.out.bam /bio/maarreol/D3Aligned.out.bam /bio/maarreol/D4Aligned.out.bam /bio/maarreol/D5Aligned.out.bam /bio/maarreol/D6Aligned.out.bam  
 
+_Should give you two files "counts.txt" and "counts.txt.summary_  
+
+Using counts.txt.summary we can look over the number of reads that fit under each assignment to see if there is any skew in any of the samples.  
+
+### Quick Data Visualization of Feature Counts  
+
+_Install any packages necessary in R_  
+
+install.packages("dplyr")  
+install.packages("tidyr")  
+install.packages("ggplot2")  
+
+x<-read.delim("counts.txt.summary",row.names=1) %>%  
+t %>%  
+as.data.frame %>%  
+mutate(sample=gsub("Aligned.out.bam", "", rownames(.))) %>%  
+select(sample, Assigned:Unassigned_NoFeatures) %>%  
+gather(Assignment, ReadCounts, -sample) %>%  
+
+x %>%  
+ggplot (aes(Assignment, ReadCounts)) + geom_bar(stat="identity", aes(fill=sample),position="dodge")
