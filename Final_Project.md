@@ -8,7 +8,7 @@ _repeat for rest of fastq files_
 ### Quality Check Fastq files:  
 #!/bin/bash  
 #$ -N Fastqc  
-#$ -q free128,abio128,bio,abio  
+#$ -q pub8i, free128, free88i  
 #$ -pe openmp 32  
 #$ -R Y  
 module load fastqc  
