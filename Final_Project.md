@@ -32,16 +32,16 @@ echo "$(ls chr*.fa | sort -V | grep -vP 'chr[^X|Y|\d]'; ls chr*.fa | sort -V | g
 #! /bin/bash/  
 #$ -N Star_genome_generation  
 #$ -pe openmp 30  
-#$ -q bio,epyc,pub8i,free128,free88i  
+#$ -q pub8i,free128,free88i  
 module load STAR/2.5.2a  
 STAR --runMode genomeGenerate --genomeDir /bio/maarreol --genomeFastaFiles /bio/maarreol/mousegenome1.fa --runThreadN 30
 
 ### Align Genome:  
 
 #! /bin/bash/  
-#$ -N Star_alignment_A1  
+#$ -N Alignment_Star  
 #$ -pe openmp 10  
-#$ -q bio,epyc,pub8i  
+#$ -q pub8i, free128, free88i  
 module load STAR/2.5.2a  
 STAR --genomeDir /bio/maarreol/ --runThreadN 24 --readFilesIn /bio/maarreol/A1_S1_R1.fastq /bio/maarreol/A1_S1_R2.fastq --outFileNamePrefix A1 --outSAMtype BAM Unsorted SortedByCoordinate
 
@@ -54,7 +54,7 @@ wget ftp://ftp.ensembl.org/pub/release-94/gtf/mus_musculus/Mus_musculus.GRCm38.9
 #! /bin/bash/
 #$ -N featurecounts
 #$ -pe openmp 10
-#$ -q bio,epyc,pub8i,gpu,free24i,pub64
+#$ -q pub8i, free128, free88i
 
 module load subread/1.5.0-p3
 
