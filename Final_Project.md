@@ -81,3 +81,5 @@ gather(Assignment, ReadCounts, -sample) %>%
 
 x %>%  
 ggplot (aes(Assignment, ReadCounts)) + geom_bar(stat="identity", aes(fill=sample),position="dodge")
+
+![Rplot1](https://github.com/maarreol/EE282/blob/master/Rplot01.png)
