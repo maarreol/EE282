@@ -108,12 +108,20 @@ thresh <- myCPM > 1
 \# _Keep genes that have at least 2 values greater than 0.5 from cpm_
 keep <- rowSums(thresh) >= 2  
 
-\# _keep more highly expressed genes by subsetting rows_
- counts.keep <- datacounts[keep,]  
+\# _keep more highly expressed genes by subsetting rows_  
+counts.keep <- datacounts[keep,]  
  
 \# _create DEGlist_  
  DGE <- DGEList(counts.keep)  
 
 \# _Plot Library Sizes_  
-barplot(DGE$samples$lib.size,names=colnames(DGE),las=2)
-title("Library Sizes")
+barplot(DGE$samples$lib.size,names=colnames(DGE),las=2)  
+title("Library Sizes")  
+
+\# _Get log2 counts per million_  
+logDGE <- cpm(DGE,log=TRUE)
+
+\# _Check distributions of samples using boxplots with line corresponding to median logCPM_
+boxplot(logDGE, xlab="", ylab="Log2 counts per million",las=2)
+abline(h=median(logDGE),col="blue")
+title("Boxplots of logCPMs")
