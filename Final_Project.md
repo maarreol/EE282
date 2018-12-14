@@ -115,13 +115,17 @@ counts.keep <- datacounts[keep,]
  DGE <- DGEList(counts.keep)  
 
 \# _Plot Library Sizes_  
-barplot(DGE$samples$lib.size,names=colnames(DGE),las=2)  
+barplot(DGE$samples$lib.size,names=colnames(DGE),las=2, col="Green")  
 title("Library Sizes")  
 
-\# _Get log2 counts per million_  
-logDGE <- cpm(DGE,log=TRUE)
+![LibrarySizes](https://github.com/maarreol/EE282/blob/master/librarysizes.png)  
 
-\# _Check distributions of samples using boxplots with line corresponding to median logCPM_
-boxplot(logDGE, xlab="", ylab="Log2 counts per million",las=2)
-abline(h=median(logDGE),col="blue")
-title("Boxplots of logCPMs")
+\# _Get log2 counts per million_  
+logDGE <- cpm(DGE,log=TRUE)  
+
+\# _Check distributions of samples using boxplots with line corresponding to median logCPM_  
+boxplot(logDGE, xlab="", ylab="Log2 counts per million",las=2, col="Green")  
+abline(h=median(logDGE),col="blue")  
+title("Boxplots of logCPMs")  
+
+![BoxplotLog](https://github.com/maarreol/EE282/blob/master/boxplots.png)
