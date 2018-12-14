@@ -82,4 +82,38 @@ gather(Assignment, ReadCounts, -sample) %>%
 x %>%  
 ggplot (aes(Assignment, ReadCounts)) + geom_bar(stat="identity", aes(fill=sample),position="dodge")
 
-![Rplot1](https://github.com/maarreol/EE282/blob/master/Rplot01.png)
+![Rplot1](https://github.com/maarreol/EE282/blob/master/Rplot01.png)  
+
+### Further Quality Control  
+
+source("http://bioconductor.org/biocLite.R")  
+biocLite("edgeR")  
+library(edgeR)  
+
+\# _import data into R_  
+featurecounts<-read.delim("counts.txt", stringsAsFactors = FALSE)  
+
+\# _Remove first two columns from seqdata_  
+datacounts <- featurecounts[,-(1:2)]  
+
+\# _Store GeneId as rownames_  
+rownames(datacounts) <- featurecounts[,1]  
+
+\# _Get CPM values_  
+myCPM<-cpm(datacounts)  
+
+\# _Find values greater than 1 in cpm counts_  
+thresh <- myCPM > 1  
+
+\# _Keep genes that have at least 2 values greater than 0.5 from cpm_
+keep <- rowSums(thresh) >= 2  
+
+\# _keep more highly expressed genes by subsetting rows_
+ counts.keep <- datacounts[keep,]  
+ 
+\# _create DEGlist_  
+ DGE <- DGEList(counts.keep)  
+
+\# _Plot Library Sizes_  
+barplot(DGE$samples$lib.size,names=colnames(DGE),las=2)
+title("Library Sizes")
