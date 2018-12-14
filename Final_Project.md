@@ -51,12 +51,12 @@ _replace necessary files and directory names in script for remaining files_
 
 wget ftp://ftp.ensembl.org/pub/release-94/gtf/mus_musculus/Mus_musculus.GRCm38.94.gtf.gz  
 
-#! /bin/bash/
-#$ -N featurecounts
-#$ -pe openmp 10
-#$ -q pub8i, free128, free88i
+#! /bin/bash/  
+#$ -N featurecounts  
+#$ -pe openmp 10  
+#$ -q pub8i, free128, free88i  
 
-module load subread/1.5.0-p3
+module load subread/1.5.0-p3  
 
 featureCounts -p -t exon -g gene_id -a Mus_musculus.GRCm38.94.gtf -o counts.txt /bio/maarreol/A1Aligned.out.bam  /bio/maarreol/A2Aligned.out.bam /bio/maarreol/A3Aligned.out.bam /bio/maarreol/A4Aligned.out.bam /bio/maarreol/A5Aligned.out.bam  /bio/maarreol/A6Aligned.out.bam /bio/maarreol/B1Aligned.out.bam /bio/maarreol/B2Aligned.out.bam /bio/maarreol/B3Aligned.out.bam /bio/maarreol/B4Aligned.out.bam /bio/maarreol/B5Aligned.out.bam /bio/maarreol/B6Aligned.out.bam /bio/maarreol/C1Aligned.out.bam /bio/maarreol/C2Aligned.out.bam /bio/maarreol/C3Aligned.out.bam /bio/maarreol/C4Aligned.out.bam /bio/maarreol/C5Aligned.out.bam /bio/maarreol/C6Aligned.out.bam /bio/maarreol/D1Aligned.out.bam /bio/maarreol/D2Aligned.out.bam /bio/maarreol/D3Aligned.out.bam /bio/maarreol/D4Aligned.out.bam /bio/maarreol/D5Aligned.out.bam /bio/maarreol/D6Aligned.out.bam  
 
