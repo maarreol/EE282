@@ -76,6 +76,10 @@ Over 100kb:
 Whole:  
 ![wholekb](https://github.com/maarreol/EE282/blob/master/wholekb.png)  
 
+### Comments on "Summarize partitions of a genome assembly"
+
+Excellent.
+
 #### Assemble a genome from MinION reads  
 
 #### 1. Download reads  
