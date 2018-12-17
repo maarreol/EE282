@@ -40,3 +40,17 @@ grep -v "^#" dmel-all-r6.24.gtf | cut -f3 | sort | uniq -c | sort -rn
 **Total number of genes per chromosome arm (X, Y, 2L, 2R, 3L, 3R, 4)**  
 grep -v "^[#]" dmel-all-r6.24.gtf | cut -f1 | sort | uniq -c | sort -rn | head -7
 
+### Comments
+
+You could do the comparison with the checksum automatically by using the following:
+
+```
+md5sum -c md5sum.txt
+```
+It automatically goes through all files in the md5sum.txt file and compares the computed checksum of the local files to what's in the file. What you wrote works, but this is better.
+
+As for counting genes on chromosomes, you forgot to filter for only gene features.
+
+```
+grep -v "^[#]" dmel-all-r6.24.gtf | awk ' $3 == "gene" ' | cut -f1 | sort | uniq -c | sort -rn | head -7
+```
