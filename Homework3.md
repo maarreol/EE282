@@ -13,11 +13,17 @@ Unzip file: gunzip dmel-all-chromosome-r6.24.fasta.gz
 **Calculate Total Number of Nucleotides:**  
 grep -io [agtnc] dmel-all-chromosome-r6.24.fasta | wc -l
 
+### This actually gets the wrong number of nt's you would need to first remove the headers and then do a count. to do this you would grep -v '^>' yourfastafile.fasta | then do grep -io | wc -l
+
 **Calculate the total number of Ns:**  
 grep -io [n] dmel-all-chromosome-r6.n4.fasta | wc -l  
 
+### same thing here. you would also need to remove headers
+
 **Calculate the number of sequences:**  
 grep "^>" dmel-all-chromosome-r6.24.fasta | wc -l
+
+### this is good but you could skip an extra step by just using option -c in grep.
 
 ## Summarize an annotation file
 **Download required files:**  
