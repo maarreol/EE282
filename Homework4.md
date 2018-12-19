@@ -109,6 +109,8 @@ $minimap -t 32 -Sw5 -L100 -m0 $raw/reads.fq{,} | gzip -1 > $processed/onp.paf.gz
 $miniasm -f $raw/reads.fq $processed/onp.paf.gz > $processed/reads.gfa  
 awk ' $0 ~/^S/ { print ">" $2" \n" $3 } ' $processed/reads.gfa | tee >(n50 /dev/stdin > $reports/n50.txt) | fold -w 60 > $processed/unitigs.fa  
 
+### please make sure to post your results. I do not see the calculated n50s here. 
+
 #### 2. Compare your assembly to the contig assembly (not the scaffold assembly!) from Drosophila melanogaster on FlyBase using a dotplot constructed with MUMmer (Hint: use faSplitByN as demonstrated in class)  
 
 module load perl  
